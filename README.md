@@ -1,10 +1,10 @@
 # Dreamy GUI Library Documentation
 ## Preview Image
-![Alt text](images/image.png)
+![Alt text](image.png)
 
 ## Initialize the Library
 ```lua
-local library = loadstring(game:HttpGet("<LIB URL>"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/4rmy/GUILib/main/lib.lua"))()
 ```
 ### methods
 - CreateWindow
