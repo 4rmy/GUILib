@@ -1145,9 +1145,9 @@ function library:CreateWindow(options)
 end
 
 -- return 
---return library
+return library
 
-
+--[[
 local win = library:CreateWindow({title = "Dreamy GUI Library"})
 
 local tab = win:CreateTab({Name = "Tab Name"})
@@ -1167,4 +1167,4 @@ settings:CreateKeybind({
     Callback = function()
         win:ToggleVisible()
     end
-})
+})]]
