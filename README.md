@@ -4,7 +4,7 @@
 
 ## Initialize the Library
 ```lua
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/4rmy/GUILib/main/lib.lua"))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/4rmy/GUILib/main/source.lua"))()
 ```
 ### methods
 - CreateWindow
