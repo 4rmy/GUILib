@@ -2,6 +2,12 @@
 local library = {}
 library.colortheme = {} -- TODO: add themes
 
+-- destroy previous gui
+local prev = game:GetService("CoreGui"):FindFirstChild("DreamyGUI") or game.Players.LocalPlayer:WaitForChild("PlayerGui"):FindFirstChild("DreamyGUI")
+if prev then
+    prev:Destroy()
+end
+
 local function clamp(value, min, max)
     return math.min(math.max(min, value), max)
 end
@@ -29,6 +35,7 @@ function library:CreateWindow(options)
     end
     window.ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     window.ScreenGui.DisplayOrder = 1
+    window.ScreenGui.Name = "DeamyGUI"
 
     window.MainFrame = Instance.new("Frame")
     window.MainFrame.Name = "MainFrame"
@@ -707,6 +714,10 @@ function library:CreateWindow(options)
             end
         end
 
+        function toggle:GetState()
+            return toggle.Value
+        end
+
         return toggle
     end
     -- Create a keybind
@@ -833,6 +844,7 @@ function library:CreateWindow(options)
         local slider = {}
         slider.track = false
         slider.input = nil
+        slider.value = clamp(options.Default, options.Min, options.Max)
 
         slider.widgit_slider = Instance.new("Frame")
         slider.Frame = Instance.new("Frame")
@@ -943,6 +955,8 @@ function library:CreateWindow(options)
                         function()end                    -- Tells me if the tween is done
                     )
                     
+                    slider.value = val
+
                     if options.Callback then
                         options.Callback(val)
                     end
@@ -966,6 +980,7 @@ function library:CreateWindow(options)
         end
 
         function slider:SetValue(Value)
+            slider.value = clamp(Value, options.Min, options.Max)
             local percent = clamp((Value-options.Min)/(options.Max - options.Min), 0, 1)
             slider.Fill:TweenSize(
                 UDim2.new(percent, 0, 1, 0),
@@ -978,11 +993,16 @@ function library:CreateWindow(options)
             slider.Value.Text = tostring(clamp(Value, options.Min, options.Max))
         end
 
+        function slider:GetValue()
+            return slider.Value
+        end
+
         return slider
     end
     -- Create a textbox
     function window.CreateTextbox(options, parent)
         local textbox = {}
+        textbox.value = options.DefaultText or ""
 
         local widgit_textbox = Instance.new("Frame")
         local Frame = Instance.new("Frame")
@@ -1045,6 +1065,7 @@ function library:CreateWindow(options)
         TextBox.TextSize = 14.000
         TextBox.TextXAlignment = Enum.TextXAlignment.Right
         TextBox.FocusLost:Connect(function()
+            textbox.value = TextBox.Text
             if options.Callback then
                 options.Callback(TextBox.Text)
             end
@@ -1074,6 +1095,10 @@ function library:CreateWindow(options)
 
         function textbox:SetText(Text)
             TextBox.Text = tostring(Text) or "nil"
+        end
+
+        function textbox:GetText()
+            return textbox.value
         end
 
         return textbox
@@ -1144,7 +1169,7 @@ function library:CreateWindow(options)
     return window
 end
 
--- return 
+-- return
 return library
 
 --[[
@@ -1167,4 +1192,5 @@ settings:CreateKeybind({
     Callback = function()
         win:ToggleVisible()
     end
-})]]
+})
+]]
