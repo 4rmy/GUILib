@@ -35,7 +35,7 @@ function library:CreateWindow(options)
     end
     window.ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     window.ScreenGui.DisplayOrder = 1
-    window.ScreenGui.Name = "DeamyGUI"
+    window.ScreenGui.Name = "DreamyGUI"
 
     window.MainFrame = Instance.new("Frame")
     window.MainFrame.Name = "MainFrame"
